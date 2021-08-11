@@ -13,7 +13,7 @@ jobs:
   Windows-GitHub-Action:
     runs-on: windows-latest
     steps:
-      - run: Write-Host "$env.GITHUB_JOB"
+      - run: Write-Host "$Env:GITHUB_JOB"
       - run: pwsh -Command 1..10
   Ubuntu-GitHub-Action-2:
     needs: Ubuntu-GitHub-Action
