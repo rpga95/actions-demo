@@ -10,3 +10,7 @@ jobs:
       - run: echo "The ${{ github.repository }} repo has been cloned to the runner."
       - run: echo "Current branch is $GITHUB_REF."
       - run: sh ${{ github.workspace }}/bin/hello_world.sh
+  Second-GitHub-Action:
+    runs-on: windows-latest
+    steps:
+      - run: pwsh 1..10
