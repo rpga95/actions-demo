@@ -1,16 +1,38 @@
 name: actions-demo
 on: [push]
 jobs:
-  First-GitHub-Action:
+  Ubuntu-GitHub-Action:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Triggered first job."
+      - run: echo "Triggered first job - $GITHUB_JOB"
       - name: Checkout repo code
         uses: actions/checkout@v2
       - run: echo "The ${{ github.repository }} repo has been cloned to the runner."
       - run: echo "Current branch is $GITHUB_REF."
       - run: sh ${{ github.workspace }}/bin/hello_world.sh
-  Second-GitHub-Action:
+  Windows-GitHub-Action:
     runs-on: windows-latest
     steps:
-      - run: pwsh 1..10
+      - run: Write-Host "$env.GITHUB_JOB"
+      - run: pwsh -Command 1..10
+  Ubuntu-GitHub-Action-2:
+    needs: Ubuntu-GitHub-Action
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Triggered first dependent job - $GITHUB_JOB"
+      - name: Checkout repo code
+        uses: actions/checkout@v2
+      - run: echo "The ${{ github.repository }} repo has been cloned to the runner."
+      - run: echo "Current branch is $GITHUB_REF."
+      - run: sh ${{ github.workspace }}/bin/hello_world.sh
+  Ubuntu-GitHub-Action-3:
+    needs: Ubuntu-GitHub-Action-2
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Triggered second dependent job - $GITHUB_JOB"
+      - name: Checkout repo code
+        uses: actions/checkout@v2
+      - run: echo "The ${{ github.repository }} repo has been cloned to the runner."
+      - run: echo "Current branch is $GITHUB_REF."
+      - run: sh ${{ github.workspace }}/bin/hello_world.sh
+  
