@@ -5,7 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Triggered first job."
-      #- name: Checkout repo code
-      #  uses: actions/checkout@v2
+      - name: Checkout repo code
+        uses: actions/checkout@v2
       - run: echo "The ${{ github.repository }} repo has been cloned to the runner."
+      - run: echo "Current branch is $GITHUB_REF."
       - run: sh ${{ github.workspace }}/bin/hello_world.sh
